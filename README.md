@@ -44,7 +44,7 @@ set `CALCOM_EVENT_TYPE_ID` to its numeric ID.
 ### 3. Run locally (browser test)
 
 ```bash
-uv run python -m server.server
+uv run python -m server.app
 ```
 
 Open **http://localhost:7860/** → click **Connect** → speak.
@@ -62,7 +62,7 @@ Open **http://localhost:7860/** → click **Connect** → speak.
 ```
 server/
 ├── bot.py                  # Pipeline: VAD → STT → LLM(tools) → TTS
-├── server.py               # FastAPI: /twilio/voice, /twilio/ws, /api/offer, /
+├── app.py                  # FastAPI: /twilio/voice, /twilio/ws, /api/offer, /
 ├── tools/
 │   └── __init__.py         # 7 function-calling tools
 ├── integrations/
@@ -88,7 +88,7 @@ server/
 ## Smoke Test
 
 ```bash
-uv run python -m server.server
+uv run python -m server.app
 # Open http://localhost:7860/
 # Click Connect
 # Say: "I'd like to book an appointment for Thursday at 2pm"
@@ -101,10 +101,11 @@ See `deploy/` directory (to be added) or deploy manually:
 
 ```bash
 # On your DO droplet:
-git clone <repo> && cd bright-smiles-dental
+git clone <repo> && cd bright-smiles-agent
+cd server
 cp .env.example .env  # fill in credentials
 uv sync
-uv run python -m server.server --host 0.0.0.0 --port 7860
+uv run python -m server.app --host 0.0.0.0 --port 7860
 ```
 
 Use a reverse proxy (Caddy/nginx) for HTTPS in production.
