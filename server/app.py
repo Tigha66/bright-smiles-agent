@@ -207,7 +207,7 @@ def main():
 
     logger.info(f"Starting server on {args.host}:{args.port}")
     uvicorn.run(
-        "server.server:app",
+        "server.app:app",
         host=args.host,
         port=args.port,
         reload=False,
